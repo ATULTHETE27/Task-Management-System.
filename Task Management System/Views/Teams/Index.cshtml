@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Teams>;
+
+@{
+    ViewData["Title"] = "Teams";
+}
+
+<div class="row text">
+    <div class="col-md-8 offset-2">
+       
+        <div class="row text">
+            <div class="col-md-8 offset-2">
+                <p><h1>Teams</h1></p>
+                <a class="text-dark btn btn-outline-success mt-3 float-end" asp-controller="Teams" asp-action="CreateTeam">Add New Team</a>
+
+                <table class="table">
+                    <tr>
+                        <th>Team Name</th>
+                    </tr>
+                    @foreach (var team in Model)
+                    {
+                        <tr>
+                            <td>@team.Team_Name</td>
+                            @* <td><a class="text-dark btn btn-outline-success" asp-controller="Teams" asp-action="EditTeam" asp-route-id="@team.Team_GuId">Update</a></td>
+                            <td><a class="text-dark btn btn-outline-danger" asp-controller="Teams" asp-action="DeleteTeam" asp-route-id="@team.Team_GuId">Delete</a></td>
+                        *@ </tr>
+                    }
+                </table>               
+            </div>
+        </div>
+    </div>
+</div>
+
+

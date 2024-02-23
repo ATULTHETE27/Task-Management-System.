@@ -1,0 +1,19 @@
+﻿@model Task_Management_System.ViewModels.TeamVM
+
+@{
+    ViewBag.Title = "Create Team";
+}
+
+<div class="row text">
+    <div class="col-md-8 offset-2">
+        <p><h1>Add new Collage</h1></p>
+        <form method="post" asp-controller="Teams" asp-action="CreateTeam">
+
+            @*Partial tag helper*@
+            <partial name="_TeamFormFields" model="Model" />
+
+        </form>
+    </div>
+</div>
+
+

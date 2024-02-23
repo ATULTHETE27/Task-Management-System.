@@ -1,0 +1,20 @@
+﻿@model Task_Management_System.ViewModels.TeamVM
+@{
+    ViewBag.Title = "Edit Team";
+}
+
+
+<div class="row text">
+    <div class="col-md-8 offset-2">
+        <p><h1>Update Team details </h1></p>
+        <form asp-controller="Teams" asp-action="EditTeam" method="post" class="mt-3">
+            <input hidden asp-for="Team_GuId" />
+            @*Partial tag helper*@
+            <partial name="_TeamFormFields" model="Model" />
+
+        </form>
+    </div>
+</div>
+
+
+
