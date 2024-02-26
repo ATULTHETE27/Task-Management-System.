@@ -20,7 +20,7 @@ namespace Task_Management_System.Controllers
 		}
 		public IActionResult AllTasks()
         {
-            var tasksList = _unitOfWork.Tasks.GetAll(includeProperties: "Status, Priority");
+            var tasksList = _unitOfWork.Tasks.GetAll(includeProperties: "Status");
             return View(tasksList);
         }
         //GET
@@ -35,13 +35,13 @@ namespace Task_Management_System.Controllers
 					Value = i.Id.ToString()
 				}),
 
-                PriorityList = _unitOfWork.Priority.GetAll().Select(j => new SelectListItem
-                {
-                    Text = j.Priority.Priority_Name,
-                    Value = j.Priority.Priority_Id.ToString()
-                }),
+				//PriorityList = _unitOfWork.Priority.GetAll().Select(i => new SelectListItem
+				//{
+				//	Text = i.Priority_Name,
+				//	Value = i.Priority_Id.ToString()
+				//}),
 
-            };
+			};
 
 
 
@@ -103,7 +103,7 @@ namespace Task_Management_System.Controllers
         [HttpGet]
 		public IActionResult GetAll()
 		{
-			var tasksList = _unitOfWork.Tasks.GetAll(includeProperties: "Status, Priority");
+			var tasksList = _unitOfWork.Tasks.GetAll(includeProperties: "Status");
 			return Json(new { data = tasksList });
 		}
 

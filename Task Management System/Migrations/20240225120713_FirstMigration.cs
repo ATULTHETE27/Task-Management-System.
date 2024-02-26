@@ -59,7 +59,7 @@ namespace Task_Management_System.Migrations
                 {
                     Team_Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Team_Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Team_Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -272,7 +272,7 @@ namespace Task_Management_System.Migrations
             migrationBuilder.InsertData(
                 table: "Tasks",
                 columns: new[] { "Id", "AssignDate", "Description", "DueDate", "Priority_Id", "StatusId", "TaskTitle" },
-                values: new object[] { 1, new DateTime(2024, 2, 23, 14, 58, 58, 315, DateTimeKind.Local).AddTicks(58), "C# language", new DateTime(2024, 2, 23, 14, 58, 58, 315, DateTimeKind.Local).AddTicks(59), 1, 1, "C#" });
+                values: new object[] { 1, new DateTime(2024, 2, 25, 17, 37, 10, 960, DateTimeKind.Local).AddTicks(5686), "C# language", new DateTime(2024, 2, 25, 17, 37, 10, 960, DateTimeKind.Local).AddTicks(5687), 1, 1, "C#" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

@@ -9,7 +9,7 @@ namespace Task_Management_System.Repository
     public interface IUnitOfWork
     {
         ITasksRepository Tasks { get; }
-        ITasksRepository Priority { get; }
+		IPriorityRepository Priority { get; }
 		IStatusRepository Status { get; }
         ITeamRepository Teams { get; }
         void Save();

@@ -19,78 +19,110 @@ namespace Task_Management_System.Controllers
             _hostEnvironment = hostEnvironment;
 
         }
-
-        public async Task<IActionResult> Index()
+        public IActionResult AllTeams()
         {
-            var collages = await _unitOfWork.Teams.GetAllTeams();
-            return View(collages);
-
+           List<Teams> teamsList = _unitOfWork.Teams.GetAll().ToList();
+            return View(teamsList);
         }
-
-        [HttpGet]
-        public IActionResult CreateCollage()
+        //GET
+        public IActionResult Upsert(int? id)
         {
-            return View();
+            //TeamVM teamVM = new()
+            //{
+            //    Teams = new(),
+            //    TeamsList = _unitOfWork.Teams.GetAll().Select(i => new SelectListItem
+            //    {
+            //        Text = i.Team_Name,
+            //        Value = i.Team_Id.ToString()
+            //    }),
 
-        }
 
-        [HttpPost]
-        public IActionResult CreateTeam(TeamVM team)
-        {
-            if (!ModelState.IsValid)
+
+            //};
+
+
+
+            if (id == null || id == 0)
             {
-                return View(team);
+                return View(new Teams());
+            }
+            else
+            {
+                Teams teamsobj = _unitOfWork.Teams.GetFirstOrDefault(u => u.Team_Id == id);
+                return View(teamsobj);
+
+                //update Tasks
             }
 
-            _unitOfWork.Teams.Add(team);
-            return RedirectToAction("Index");
+
         }
 
-
-        [HttpGet]
-        public async Task<IActionResult> EditCollage(Guid id, string querystringData)
-        {
-            Teams teams = await _unitOfWork.Teams.GetTeams(id);
-            var data = new TeamVM()
-            {
-                Team_Name = teams.Team_Name,
-
-            };
-            return View(data);
-        }
-
-
+        //POST
         [HttpPost]
-        public async Task<IActionResult> EditCollage(TeamVM modifiedData)
+        [ValidateAntiForgeryToken]
+        public IActionResult Upsert(Teams obj)
         {
 
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return View(modifiedData);
+
+                if (obj.Team_Id == 0)
+                {
+                    _unitOfWork.Teams.Add(obj);
+                }
+                else
+                {
+                    _unitOfWork.Teams.Update(obj);
+                }
+                _unitOfWork.Save();
+                TempData["success"] = "Task created successfully";
+                return RedirectToAction("AllTeams");
             }
-            Teams teams = await _unitOfWork.Teams.GetTeams(modifiedData.Team_GuId);
-            teams.Team_Name = modifiedData.Team_Name;
-
-            Teams updatedteams = _unitOfWork.Teams.Update(teams);
-            return RedirectToAction("Index");
+            else
+            {
+                return View(obj);
+            }
         }
 
+        public IActionResult Delete(int? id)
+        {
+            var obj = _unitOfWork.Teams.GetFirstOrDefault(u => u.Team_Id == id);
+            if (obj == null)
+            {
+                return Json(new { success = false, message = "Error while deleting" });
+            }
+
+            _unitOfWork.Teams.Remove(obj);
+            _unitOfWork.Save();
+            return Json(new { success = true, message = "Delete Successful" });
+
+        }
+
+        #region API CALLS
         [HttpGet]
-        public async Task<IActionResult> GetTeam(Guid id)
+        public IActionResult GetAll()
         {
-            Teams teams = await _unitOfWork.Teams.GetTeams(id);
-            // return RedirectToAction("Index",collage);
-            List<Teams> collages = new List<Teams>();
-            collages.Add(teams);
-            return View("Index", teams);
+            List<Teams> teamsList = _unitOfWork.Teams.GetAll().ToList();
+            return Json(new { data = teamsList });
         }
 
-        public IActionResult DeleteTeam(int id)
+        //POST
+        [HttpDelete]
+        public IActionResult Delete1(int? id)
         {
-            _unitOfWork.Teams.Delete(id);
-            return RedirectToAction("Index");
+            var obj = _unitOfWork.Teams.GetFirstOrDefault(u => u.Team_Id == id);
+            if (obj == null)
+            {
+                return Json(new { success = false, message = "Error while deleting" });
+            }
+
+            _unitOfWork.Teams.Remove(obj);
+            _unitOfWork.Save();
+            return Json(new { success = true, message = "Delete Successful" });
+
         }
+        #endregion
     }
 
 }
-
+ 

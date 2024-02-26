@@ -109,6 +109,16 @@
                                         <a class="nav-link" a asp-area="" asp-controller="Tasks" asp-action="Upsert">Create New Tasks</a>
                                     </nav>
                                 </div>
+                                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseTeams" aria-expanded="false" aria-controls="pagesCollapseError">
+                                    Manage Teams
+                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                </a>
+                                <div class="collapse" id="pagesCollapseTeams" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                                    <nav class="sb-sidenav-menu-nested nav">
+                                        <a class="nav-link" a asp-area="" asp-controller="Teams" asp-action="AllTeams">Teams</a>
+                                        <a class="nav-link" a asp-area="" asp-controller="Teams" asp-action="Upsert">Create New Teams</a>
+                                    </nav>
+                                </div>
                             </nav>
                         </div>
                     </div>

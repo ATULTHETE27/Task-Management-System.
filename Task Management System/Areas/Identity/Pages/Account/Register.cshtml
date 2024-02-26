@@ -67,18 +67,18 @@
                                 <option disabled selected>-Select Role-</option>
                             </select>
                         </div>
-                        <div class="form-floating py-2">
+                        @* <div class="form-floating py-2">
                             <label asp-for="Input.Team_Id" class="control-label"></label>
                             <textarea asp-for="Input.Team_Id" class="form-control"></textarea>
                             <span asp-validation-for="Input.Team_Id" class="text-danger"></span>
-                        </div>
-                        @* <div class="form-floating py-2 ">
-                            <label asp-for="Input.Teams">Team *</label>
-                            <select asp-for="Input.Teams" asp-items="@Model.Input.TeamsList" class="form-select">
+                        </div> *@
+                        <div class="form-floating py-2 ">
+                            <label asp-for="Input.Team_Id">Team *</label>
+                            <select asp-for="Input.Team_Id" asp-items="@Model.Input.TeamsList" class="form-select">
                                 <option disabled selected>--Select Team--</option>
                             </select>
-                            <span asp-validation-for="Input.Teams" class="text-danger"></span>
-                        </div> *@
+                            <span asp-validation-for="Input.Team_Id" class="text-danger"></span>
+                        </div>  
                         <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
                     </form>
                 </div>

@@ -1,0 +1,51 @@
+﻿@model Teams
+
+@{
+	ViewData["Title"] = "Teams";
+	Layout = "~/Views/Shared/_Tasks_Layout.cshtml";
+}
+
+<div class="row justify-content-center">
+
+
+	<form method="post" asp-action="Upsert" enctype="multipart/form-data">
+		<input asp-for="Team_Id" hidden />
+
+		<div class="row justify-content-center">
+			<div class="col-10">
+				<div class="border p-3 mt-4 row">
+					<div class="col-12 pb-2">
+						<h2 class="text-primary">@(Model.Team_Id != 0 ? "Update" : "Create")  Team</h2>
+						<hr />
+					</div>
+					@*<div asp-validation-summary="All"></div>*@
+					<div class="mb-3">
+						<label asp-for="Team_Name ">Team Name *</label>
+						<input asp-for="Team_Name" class="form-control" />
+						<span asp-validation-for="Team_Name" class="text-danger"></span>
+					</div>
+					
+					<div class="col-12">
+						@if (Model.Team_Id != 0)
+						{
+							<button type="submit" class="btn btn-primary" style="width:150px">Update</button>
+						}
+						else
+						{
+							<button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Create</button>
+						}
+						<a asp-controller="Teams" asp-action="AllTeams" class="btn btn-secondary" style="width:150px">
+							Back to List
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+@section Scripts{
+	@{
+	<partial name="_ValidationScriptsPartial" />
+	}
+}

@@ -17,14 +17,16 @@ namespace Task_Management_System.Repository
             _db = db;
             Tasks = new TasksRepository(_db);
             Status = new StatusRepository(_db);
-		}
+			Priority = new PriorityRepository(_db);
+			Teams = new TeamRepository(_db);
+        }
         public ITasksRepository Tasks { get; private set; }
 
 		public IStatusRepository Status { get; private set; }
 
         public ITeamRepository Teams { get; private set; }
 
-        public ITasksRepository Priority { get; private set; }
+        public IPriorityRepository Priority { get; private set; }
 
         public void Save()
         {

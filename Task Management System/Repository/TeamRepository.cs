@@ -16,49 +16,49 @@ namespace Task_Management_System.Repository
             _db = db;
         }
 
-        public void Add(TeamVM team)
-        {
-            var newTeams = new Teams()
-            {
-                Team_Name = team.Team_Name,
-            };
+        //public void Add(TeamVM team)
+        //{
+        //    var newTeams = new Teams()
+        //    {
+        //        Team_Name = team.Team_Name,
+        //    };
 
-            _db.Teams.Add(newTeams);
-            _db.SaveChanges();
+        //    _db.Teams.Add(newTeams);
+        //    _db.SaveChanges();
+        //}
+
+        //public async Task<IEnumerable<string>> GetAllTeams()
+        //{
+        //    return (IEnumerable<string>)_db.Teams.ToListAsync();
+        //}
+
+
+        //public async Task<Teams> GetTeams(int team_Id)
+        //{
+        //    Teams teams = new Teams();
+        //    teams = await _db.Teams.FindAsync(team_Id);
+        //    if (teams == null)
+        //    {
+        //        return new Teams();
+        //    }
+        //    return teams;
+        //}
+
+        public void Update(Teams teams)
+        {
+            _db.Teams.Update(teams);
+            //_db.SaveChanges();
+            //return teams;
         }
 
-        public async Task<IEnumerable<string>> GetAllTeams()
-        {
-            return (IEnumerable<string>)_db.Teams.ToListAsync();
-        }
-
-
-        public async Task<Teams> GetTeams(Guid team_GUId)
-        {
-            Teams teams = new Teams();
-            teams = await _db.Teams.FindAsync(team_GUId);
-            if (teams == null)
-            {
-                return new Teams();
-            }
-            return teams;
-        }
-
-        public Teams Update(Teams teams)
-        {
-            _db.Update(teams);
-            _db.SaveChanges();
-            return teams;
-        }
-
-        public void Delete(int Id)
-        {
-            Teams teams = _db.Teams.Find(Id);
-            if (teams != null)
-            {
-                _db.Teams.Remove(teams);
-                _db.SaveChanges();
-            }
-        }
+        //public void Delete(int Id)
+        //{
+        //    Teams teams = _db.Teams.Find(Id);
+        //    if (teams != null)
+        //    {
+        //        _db.Teams.Remove(teams);
+        //        _db.SaveChanges();
+        //    }
+        //}
     }
 }

@@ -12,7 +12,7 @@ using Task_Management_System.Context;
 namespace Task_Management_System.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240223092859_FirstMigration")]
+    [Migration("20240225120713_FirstMigration")]
     partial class FirstMigration
     {
         /// <inheritdoc />
@@ -358,9 +358,9 @@ namespace Task_Management_System.Migrations
                         new
                         {
                             Id = 1,
-                            AssignDate = new DateTime(2024, 2, 23, 14, 58, 58, 315, DateTimeKind.Local).AddTicks(58),
+                            AssignDate = new DateTime(2024, 2, 25, 17, 37, 10, 960, DateTimeKind.Local).AddTicks(5686),
                             Description = "C# language",
-                            DueDate = new DateTime(2024, 2, 23, 14, 58, 58, 315, DateTimeKind.Local).AddTicks(59),
+                            DueDate = new DateTime(2024, 2, 25, 17, 37, 10, 960, DateTimeKind.Local).AddTicks(5687),
                             Priority_Id = 1,
                             StatusId = 1,
                             TaskTitle = "C#"
@@ -376,6 +376,7 @@ namespace Task_Management_System.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Team_Id"));
 
                     b.Property<string>("Team_Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Team_Id");

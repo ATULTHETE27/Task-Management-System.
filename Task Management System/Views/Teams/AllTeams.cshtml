@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Teams>
+@{
+    ViewData["Title"] = "All Teams";
+    Layout = "~/Views/Shared/_Tasks_Layout.cshtml";
+}
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h1 class="text-primary">Teams List</h1>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-controller="Tasks" asp-action="Upsert" class="btn btn-primary mx-3">
+                <i class="bi bi-plus-circle"></i> &nbsp; Create New Team
+            </a>
+        </div>
+    </div>
+    <br />
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Task Table
+        </div>
+        <div class="card-body">
+            <table id="datatablesSimple">
+                <thead>
+                    <tr>
+                        <th>Team Name</th>
+                       
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Team Name</th>
+                        
+                    </tr>
+                </tfoot>
+                <tbody>
+                    @foreach (var teams in Model)
+                    {
+                        <tr>
+                            <th>@teams.Team_Name</th>
+                           
+                            <th>
+                                <a asp-controller="Teams" asp-action="Upsert" asp-route-id="@teams.Team_Id" class="btn btn-primary mx-3 btn-dark"><i class="bi bi-pencil-square"></i></a>
+                                <a asp-controller="Teams" asp-action="Delete" asp-route-id="@teams.Team_Id" class="btn btn-danger mx-2"> <i class="bi bi-trash-fill"></i></a>
+                            </th>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/front/js/teams.js"></script>
+}

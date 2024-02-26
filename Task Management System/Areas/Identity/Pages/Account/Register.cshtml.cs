@@ -5,6 +5,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
@@ -22,7 +23,9 @@ using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using Task_Management_System.Areas.Identity.Data;
 using Task_Management_System.Models;
+using Task_Management_System.Repository;
 using Task_Management_System.Utility;
+using Task_Management_System.ViewModels;
 
 namespace Task_Management_System.Areas.Identity.Pages.Account
 {
@@ -34,6 +37,7 @@ namespace Task_Management_System.Areas.Identity.Pages.Account
         private readonly IUserStore<Task_Management_SystemUser> _userStore;
         private readonly IUserEmailStore<Task_Management_SystemUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IEmailSender _emailSender;
 
         public RegisterModel(
@@ -42,8 +46,10 @@ namespace Task_Management_System.Areas.Identity.Pages.Account
             IUserStore<Task_Management_SystemUser> userStore,
             SignInManager<Task_Management_SystemUser> signInManager,
             ILogger<RegisterModel> logger,
+            IUnitOfWork unitOfWork,
             IEmailSender emailSender)
         {
+            _unitOfWork = unitOfWork;
             _userManager = userManager;
             _roleManager = roleManager;
             _userStore = userStore;
@@ -113,13 +119,12 @@ namespace Task_Management_System.Areas.Identity.Pages.Account
             public string? State { get; set; }
             public string? PostalCode { get; set; }
             public string? PhoneNumber { get; set; }
-            public int Team_Id { get; set; }
             public string? Role { get; set; }
             [ValidateNever]
             public IEnumerable<SelectListItem> RoleList { get; set; }
-            public Teams? Teams { get; set; }
+            public int Team_Id { get; set; }
             [ValidateNever]
-            public IEnumerable<SelectListItem>? TeamsList { get; set; }
+            public IEnumerable<SelectListItem> TeamsList { get; set; }
 
 
         }
@@ -142,6 +147,12 @@ namespace Task_Management_System.Areas.Identity.Pages.Account
                 {
                     Text = i,
                     Value = i
+                }),
+
+                TeamsList = _unitOfWork.Teams.GetAll().Select(i => new SelectListItem
+                {
+                    Text = i.Team_Name,
+                    Value = i.Team_Id.ToString()
                 })
 
             };
@@ -164,9 +175,8 @@ namespace Task_Management_System.Areas.Identity.Pages.Account
                 user.State = Input.State;
                 user.PostalCode = Input.PostalCode;
                 user.Name = Input.Name;
-                user.Teams = Input.Teams;
                 user.Team_Id = Input.Team_Id;
-                user.PhoneNumber = Input.PhoneNumber;
+				user.PhoneNumber = Input.PhoneNumber;
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
