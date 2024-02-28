@@ -355,9 +355,9 @@ namespace Task_Management_System.Migrations
                         new
                         {
                             Id = 1,
-                            AssignDate = new DateTime(2024, 2, 25, 17, 37, 10, 960, DateTimeKind.Local).AddTicks(5686),
+                            AssignDate = new DateTime(2024, 2, 28, 16, 3, 14, 864, DateTimeKind.Local).AddTicks(7831),
                             Description = "C# language",
-                            DueDate = new DateTime(2024, 2, 25, 17, 37, 10, 960, DateTimeKind.Local).AddTicks(5687),
+                            DueDate = new DateTime(2024, 2, 28, 16, 3, 14, 864, DateTimeKind.Local).AddTicks(7832),
                             Priority_Id = 1,
                             StatusId = 1,
                             TaskTitle = "C#"

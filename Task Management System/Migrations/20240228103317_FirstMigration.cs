@@ -272,7 +272,7 @@ namespace Task_Management_System.Migrations
             migrationBuilder.InsertData(
                 table: "Tasks",
                 columns: new[] { "Id", "AssignDate", "Description", "DueDate", "Priority_Id", "StatusId", "TaskTitle" },
-                values: new object[] { 1, new DateTime(2024, 2, 25, 17, 37, 10, 960, DateTimeKind.Local).AddTicks(5686), "C# language", new DateTime(2024, 2, 25, 17, 37, 10, 960, DateTimeKind.Local).AddTicks(5687), 1, 1, "C#" });
+                values: new object[] { 1, new DateTime(2024, 2, 28, 16, 3, 14, 864, DateTimeKind.Local).AddTicks(7831), "C# language", new DateTime(2024, 2, 28, 16, 3, 14, 864, DateTimeKind.Local).AddTicks(7832), 1, 1, "C#" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

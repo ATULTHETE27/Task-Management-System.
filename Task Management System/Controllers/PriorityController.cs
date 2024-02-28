@@ -7,49 +7,36 @@ using Task_Management_System.ViewModels;
 
 namespace Task_Management_System.Controllers
 {
-    public class TeamsController : Controller
+    public class PriorityController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _hostEnvironment;
 
 
-        public TeamsController(IUnitOfWork unitOfWork, IWebHostEnvironment hostEnvironment)
+        public PriorityController(IUnitOfWork unitOfWork, IWebHostEnvironment hostEnvironment)
         {
             _unitOfWork = unitOfWork;
             _hostEnvironment = hostEnvironment;
 
         }
-        public IActionResult AllTeams()
+		public IActionResult AllPriority()
+		{
+			List<Priority> priorityList = _unitOfWork.Priority.GetAll().ToList();
+			return View(priorityList);
+		}
+
+		//GET
+		public IActionResult Upsert(int? id)
         {
-           List<Teams> teamsList = _unitOfWork.Teams.GetAll().ToList();
-            return View(teamsList);
-        }
-        //GET
-        public IActionResult Upsert(int? id)
-        {
-            //TeamVM teamVM = new()
-            //{
-            //    Teams = new(),
-            //    TeamsList = _unitOfWork.Teams.GetAll().Select(i => new SelectListItem
-            //    {
-            //        Text = i.Team_Name,
-            //        Value = i.Team_Id.ToString()
-            //    }),
-
-
-
-            //};
-
-
-
+            
             if (id == null || id == 0)
             {
-                return View(new Teams());
+                return View(new Priority());
             }
             else
             {
-                Teams teamsobj = _unitOfWork.Teams.GetFirstOrDefault(u => u.Team_Id == id);
-                return View(teamsobj);
+				Priority prioritysobj = _unitOfWork.Priority.GetFirstOrDefault(u => u.Priority_Id == id);
+                return View(prioritysobj);
 
                 //update Tasks
             }
@@ -60,22 +47,22 @@ namespace Task_Management_System.Controllers
         //POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Upsert(Teams obj)
+        public IActionResult Upsert(Priority obj)
         {
 
             if (ModelState.IsValid)
             {
 
-                if (obj.Team_Id == 0)
+                if (obj.Priority_Id == 0)
                 {
-                    _unitOfWork.Teams.Add(obj);
+                    _unitOfWork.Priority.Add(obj);
                 }
                 else
                 {
-                    _unitOfWork.Teams.Update(obj);
+                    _unitOfWork.Priority.Update(obj);
                 }
                 _unitOfWork.Save();
-                TempData["success"] = "Team created successfully";
+                TempData["success"] = "Task created successfully";
                 return RedirectToAction("AllTeams");
             }
             else
@@ -86,13 +73,13 @@ namespace Task_Management_System.Controllers
 
         public IActionResult Delete(int? id)
         {
-            var obj = _unitOfWork.Teams.GetFirstOrDefault(u => u.Team_Id == id);
+            var obj = _unitOfWork.Priority.GetFirstOrDefault(u => u.Priority_Id == id);
             if (obj == null)
             {
                 return Json(new { success = false, message = "Error while deleting" });
             }
 
-            _unitOfWork.Teams.Remove(obj);
+            _unitOfWork.Priority.Remove(obj);
             _unitOfWork.Save();
             return Json(new { success = true, message = "Delete Successful" });
 
@@ -102,21 +89,21 @@ namespace Task_Management_System.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            List<Teams> teamsList = _unitOfWork.Teams.GetAll().ToList();
-            return Json(new { data = teamsList });
+            List<Priority> priorityList = _unitOfWork.Priority.GetAll().ToList();
+            return Json(new { data = priorityList });
         }
 
         //POST
         [HttpDelete]
         public IActionResult Delete1(int? id)
         {
-            var obj = _unitOfWork.Teams.GetFirstOrDefault(u => u.Team_Id == id);
+            var obj = _unitOfWork.Priority.GetFirstOrDefault(u => u.Priority_Id == id);
             if (obj == null)
             {
                 return Json(new { success = false, message = "Error while deleting" });
             }
 
-            _unitOfWork.Teams.Remove(obj);
+            _unitOfWork.Priority.Remove(obj);
             _unitOfWork.Save();
             return Json(new { success = true, message = "Delete Successful" });
 

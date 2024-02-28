@@ -25,7 +25,7 @@ namespace Task_Management_System.Repository
                 objFromDb.TaskTitle = obj.TaskTitle;
                 objFromDb.Description = obj.Description;
 
-                objFromDb.Priority = obj.Priority;
+                objFromDb.Priority_Id = obj.Priority_Id;
                 objFromDb.AssignDate = obj.AssignDate;
                 objFromDb.DueDate = obj.DueDate;
                 objFromDb.StatusId = obj.StatusId;

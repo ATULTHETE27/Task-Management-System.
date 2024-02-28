@@ -13,6 +13,7 @@ namespace Task_Management_System.ViewModels
 		public IEnumerable<SelectListItem> AssignToList { get; set; }
 		[ValidateNever]
 		public IEnumerable<SelectListItem> StatusList { get; set; }
+		[ValidateNever] 
 		public IEnumerable<SelectListItem> PriorityList { get; set; }
 	}
 }
